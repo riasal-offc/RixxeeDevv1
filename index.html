@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RixxeDev1 Payment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .profile-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid #4CAF50;
+        }
+        
+        .profile-info h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .profile-info p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .payment-method {
+            margin-bottom: 25px;
+        }
+        
+        .payment-method h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #444;
+        }
+        
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-option:hover {
+            border-color: #4CAF50;
+            background-color: #f9f9f9;
+        }
+        
+        .payment-option.active {
+            border-color: #4CAF50;
+            background-color: #f0fff0;
+        }
+        
+        .payment-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            object-fit: contain;
+        }
+        
+        .payment-details {
+            flex: 1;
+        }
+        
+        .payment-details h4 {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+        
+        .payment-details p {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .qris-container {
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .qris-container.active {
+            display: block;
+        }
+        
+        .qris-img {
+            max-width: 250px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .manual-details {
+            display: none;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .manual-details.active {
+            display: block;
+        }
+        
+        .manual-details p {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .copy-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .instructions {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff8e1;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .instructions h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: #e65100;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+            font-size: 13px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <img src="https://img1.pixhost.to/images/6849/616627061_imgtmp.jpg" alt="Profile" class="profile-img">
+            <div class="profile-info">
+                <h2>RixxeDev1</h2>
+                <p>Silakan pilih metode pembayaran</p>
+            </div>
+        </div>
+        
+        <div class="payment-method">
+            <h3>Pilih Metode Pembayaran</h3>
+            
+            <div class="payment-option" onclick="selectPayment('qris')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" alt="QRIS" class="payment-icon">
+                <div class="payment-details">
+                    <h4>QRIS</h4>
+                    <p>Scan kode QR untuk pembayaran</p>
+                </div>
+            </div>
+            
+            <div class="payment-option" onclick="selectPayment('dana')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" class="payment-icon">
+                <div class="payment-details">
+                    <h4>DANA</h4>
+                    <p>Transfer ke nomor DANA</p>
+                </div>
+            </div>
+            
+            <div class="payment-option" onclick="selectPayment('gopay')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gopay_logo.svg/2560px-Gopay_logo.svg.png" alt="GOPAY" class="payment-icon">
+                <div class="payment-details">
+                    <h4>GOPAY</h4>
+                    <p>Transfer ke nomor GOPAY</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="qris-details" class="qris-container">
+            <img src="https://img1.pixhost.to/images/6852/616711147_imgtmp.jpg" alt="QRIS Code" class="qris-img">
+            <p>Scan QR code di atas menggunakan aplikasi mobile banking atau e-wallet Anda</p>
+        </div>
+        
+        <div id="dana-details" class="manual-details">
+            <p><strong>Nomor DANA:</strong> 081282171403 <button class="copy-btn" onclick="copyToClipboard('081282171403')">Salin</button></p>
+            <p><strong>Atas Nama:</strong> EVA NURMALISA</p>
+            <p>Silakan transfer sesuai nominal ke nomor DANA di atas</p>
+        </div>
+        
+        <div id="gopay-details" class="manual-details">
+            <p><strong>Nomor GOPAY:</strong> 087836632663 <button class="copy-btn" onclick="copyToClipboard('087836632663')">Salin</button></p>
+            <p><strong>Atas Nama:</strong> RIXZFORYOU</p>
+            <p>Silakan transfer sesuai nominal ke nomor GOPAY di atas</p>
+        </div>
+        
+        <div class="instructions">
+            <h3>Instruksi Pembayaran</h3>
+            <ol>
+                <li>Pilih metode pembayaran yang diinginkan</li>
+                <li>Untuk QRIS, scan kode menggunakan aplikasi bank/e-wallet</li>
+                <li>Untuk DANA/GOPAY, transfer ke nomor yang tertera</li>
+                <li>Setelah transfer, simpan bukti pembayaran</li>
+                <li>Konfirmasi pembayaran ke penjual</li>
+            </ol>
+        </div>
+        
+        <div class="footer">
+            <p>Pastikan Anda membayar ke nomor/nama yang tertera di atas</p>
+        </div>
+    </div>
+
+    <script>
+        function selectPayment(method) {
+            // Remove active class from all options
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            
+            // Add active class to selected option
+            event.currentTarget.classList.add('active');
+            
+            // Hide all details
+            document.getElementById('qris-details').classList.remove('active');
+            document.getElementById('dana-details').classList.remove('active');
+            document.getElementById('gopay-details').classList.remove('active');
+            
+            // Show selected details
+            document.getElementById(method + '-details').classList.add('active');
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Nomor berhasil disalin: ' + text);
+            }).catch(err => {
+                console.error('Gagal menyalin: ', err);
+            });
+        }
+        
+        // Select first payment method by default
+        window.onload = function() {
+            document.querySelector('.payment-option').click();
+        };
+    </script>
+</body>
+  </html>
